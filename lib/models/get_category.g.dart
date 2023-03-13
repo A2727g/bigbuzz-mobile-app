@@ -1,0 +1,29 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'get_category.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
+      json['category_id'] as String,
+      json['category_name'] as String,
+      json['category_parent'] as String,
+      json['is_deleted'] as String,
+      json['category_created_by'] as String,
+      json['category_update_by'] as String,
+      json['category_created_at'] as String,
+      json['category_updated_at'] as String,
+    );
+
+Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
+      'category_id': instance.category_id,
+      'category_name': instance.category_name,
+      'category_parent': instance.category_parent,
+      'is_deleted': instance.is_deleted,
+      'category_created_by': instance.category_created_by,
+      'category_update_by': instance.category_update_by,
+      'category_created_at': instance.category_created_at,
+      'category_updated_at': instance.category_updated_at,
+    };
