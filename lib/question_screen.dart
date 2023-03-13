@@ -43,23 +43,18 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
 
   @override
   void didChangeDependencies() async {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
     print(widget.campaignId);
     setState(() {
       isLoading = true;
     });
-    await fetchQuestionData(campaignId: widget.campaignId);
-    if (questionnairData == null) {
-      Navigator.of(context).pop();
-      Fluttertoast.showToast(
-          msg: 'No Data Found',
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 2,
-          backgroundColor: Colors.black,
-          fontSize: 15);
-    }
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
+    fetchQuestionData(campaignId: widget.campaignId);
+    super.initState();
   }
 
   @override
@@ -748,6 +743,16 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
       questionnairData = QuestionNairModel.fromJson(data);
     } else {
       questionnairData = null;
+      if (questionnairData == null) {
+        Navigator.of(context).pop();
+        Fluttertoast.showToast(
+            msg: 'No Data Found',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 2,
+            backgroundColor: Colors.black,
+            fontSize: 15);
+      }
     }
     logPrint.w(responseBody['data']);
     if (questionnairData != null) {
