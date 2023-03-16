@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/app/intermediates/incremental/mergeDebugResources/merged.dir/values-lo/values-lo.xml",
+            "outputFile": "C:\\Users\\HP\\bigbuzz-mobile-app\\bigbuzz-mobile-app\\bIgbuzz\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lo\\values-lo.xml",
             "map": [
                 {
-                    "source": "/Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/res/values-lo/values-lo.xml",
+                    "source": "C:\\Users\\HP\\.gradle\\caches\\transforms-3\\6710ee2e3546b398da00e75003abfc33\\transformed\\core-1.9.0\\res\\values-lo\\values-lo.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

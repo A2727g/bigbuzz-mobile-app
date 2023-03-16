@@ -5,8 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:bigbuzz/constants.dart';
 import 'package:bigbuzz/drawer_screen.dart';
 import 'package:bigbuzz/team_registration_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
 import 'bottom_feedback_screen.dart';
 import 'package:http/http.dart' as http;
 import 'bottom_sheet.dart';
@@ -221,6 +221,7 @@ class TicketCard extends StatelessWidget {
     'pending': ColorConstants.pendingStatus,
     'rejected': ColorConstants.rejectedStatus,
   };
+
   static const Map<String, Color> ticketColorMap = {
     'e': ColorConstants.eTicketName,
     'a': ColorConstants.aTicketName,

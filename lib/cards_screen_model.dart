@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:math';
 import 'package:bigbuzz/utils/ticket_card.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert' as convert;
@@ -32,6 +32,8 @@ class _CardScreenPageState extends State<CardScreenPage> {
   Future<void> getUserData() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
+
+
 
     var token = sharedPreferences.getString('token');
     userData = json.decode(
@@ -107,13 +109,14 @@ class _CardScreenPageState extends State<CardScreenPage> {
             .iconTheme
             .copyWith(color: const Color.fromARGB(255, 0, 37, 65)),
         title: TextFormField(
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
               hintText: "Search Campaign",
               hintStyle: TextStyle(
                   color: Color.fromARGB(255, 131, 145, 161),
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
               border: InputBorder.none),
+          // onChanged: ticketList,
         ),
         actions: [
           IconButton(
@@ -229,7 +232,11 @@ class _CardScreenPageState extends State<CardScreenPage> {
   }
 
   Future<dynamic> fetchCampaign(Map? filterData) async {
-    print(filterData);
+
+   logPrint.w(filterData);
+
+    // logPrint.w(ticketList);
+
 
     var endPoint = "getCampaignByFos";
 
@@ -255,7 +262,7 @@ class _CardScreenPageState extends State<CardScreenPage> {
     }
     String url = "https://api.bigbuzzapp.com/campaign/$endPoint";
     print(url);
-    print(body);
+    logPrint.w(body);
     final response =
         await http.post(Uri.parse(url), body: body, headers: headers);
     print(json.decode(response.body));
@@ -267,6 +274,7 @@ class _CardScreenPageState extends State<CardScreenPage> {
     if (responseBody['meta']['code'] == 200) {
       ticketList.addAll(responseBody!['data']);
       setLoader(false);
+
 
       return jsonDecode(response.body);
     } else {

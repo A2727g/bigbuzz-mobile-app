@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.17.0
   fluttertoast: ^8.1.1
   modal_bottom_sheet: ^2.1.2
+  search_page: ^2.3.0
   logger: ^1.1.0
   dotted_border: ^2.0.0+3
   dropdown_search: ^5.0.5

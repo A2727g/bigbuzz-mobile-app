@@ -12,61 +12,61 @@
 12         to allow setting breakpoints, to provide hot reload, etc.
 13    -->
 14    <uses-permission android:name="android.permission.INTERNET" />
-14-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:3:5-67
-14-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:3:22-64
+14-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:3:5-67
+14-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:3:22-64
 15
 16    <queries>
-16-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:4:5-15:15
+16-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:4:5-15:15
 17
 18        <!-- If your app checks for SMS support -->
 19        <intent>
-19-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:6:9-9:18
+19-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:6:9-9:18
 20            <action android:name="android.intent.action.VIEW" />
-20-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:7:13-65
-20-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:7:21-62
+20-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:7:13-65
+20-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:7:21-62
 21
 22            <data android:scheme="sms" />
-22-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:8:13-42
-22-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:8:19-39
+22-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:8:13-42
+22-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:8:19-39
 23        </intent>
 24        <!-- If your app checks for call support -->
 25        <intent>
-25-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:11:9-14:18
+25-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:11:9-14:18
 26            <action android:name="android.intent.action.VIEW" />
-26-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:7:13-65
-26-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:7:21-62
+26-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:7:13-65
+26-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:7:21-62
 27
 28            <data android:scheme="tel" />
-28-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:8:13-42
-28-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:8:19-39
+28-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:8:13-42
+28-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:8:19-39
 29        </intent>
 30    </queries>
 31
 32    <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
-32-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:16:5-77
-32-->/Users/akshitsoni/Documents/books/bigbuzz-mobile-app/android/app/src/main/AndroidManifest.xml:16:22-74
+32-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:16:5-77
+32-->C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\android\app\src\main\AndroidManifest.xml:16:22-74
 33    <uses-permission android:name="android.permission.CAMERA" />
-33-->[:camera] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/camera/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-65
-33-->[:camera] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/camera/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-62
+33-->[:camera] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\camera\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-65
+33-->[:camera] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\camera\intermediates\merged_manifest\debug\AndroidManifest.xml:9:22-62
 34    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-34-->[:camera] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/camera/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-71
-34-->[:camera] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/camera/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-68
+34-->[:camera] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\camera\intermediates\merged_manifest\debug\AndroidManifest.xml:10:5-71
+34-->[:camera] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\camera\intermediates\merged_manifest\debug\AndroidManifest.xml:10:22-68
 35
 36    <permission
-36-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+36-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
 37        android:name="com.salesjinni.bigbuzz.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-37-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+37-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
 38        android:protectionLevel="signature" />
-38-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+38-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
 39
 40    <uses-permission android:name="com.salesjinni.bigbuzz.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-40-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
-40-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+40-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+40-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
 41
 42    <application
 43        android:name="android.app.Application"
 44        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-44-->[androidx.core:core:1.9.0] /Users/akshitsoni/.gradle/caches/transforms-3/6710ee2e3546b398da00e75003abfc33/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+44-->[androidx.core:core:1.9.0] C:\Users\HP\.gradle\caches\transforms-3\6710ee2e3546b398da00e75003abfc33\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
 45        android:debuggable="true"
 46        android:icon="@mipmap/launcher_icon"
 47        android:label="Bigbuzz" >
@@ -104,82 +104,82 @@
 79            android:value="2" />
 80
 81        <provider
-81-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-18:20
+81-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
 82            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-82-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-82
+82-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
 83            android:authorities="com.salesjinni.bigbuzz.flutter.image_provider"
-83-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-74
+83-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
 84            android:exported="false"
-84-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
+84-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
 85            android:grantUriPermissions="true" >
-85-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-47
+85-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
 86            <meta-data
-86-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:75
+86-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 87                android:name="android.support.FILE_PROVIDER_PATHS"
-87-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+87-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 88                android:resource="@xml/flutter_image_picker_file_paths" />
-88-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-72
+88-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 89        </provider>
 90        <!--
 91           Declares a provider which allows us to store files to share in
 92           '.../caches/share_plus' and grant the receiving action access
 93        -->
 94        <provider
-94-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:15:9-23:20
+94-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-23:20
 95            android:name="dev.fluttercommunity.plus.share.ShareFileProvider"
-95-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-77
+95-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:16:13-77
 96            android:authorities="com.salesjinni.bigbuzz.flutter.share_provider"
-96-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-74
+96-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:17:13-74
 97            android:exported="false"
-97-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:18:13-37
+97-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:18:13-37
 98            android:grantUriPermissions="true" >
-98-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:19:13-47
+98-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:19:13-47
 99            <meta-data
-99-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-17:75
+99-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
 100                android:name="android.support.FILE_PROVIDER_PATHS"
-100-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:17-67
+100-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
 101                android:resource="@xml/flutter_share_file_paths" />
-101-->[:image_picker_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/image_picker_android/intermediates/merged_manifest/debug/AndroidManifest.xml:17:17-72
+101-->[:image_picker_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
 102        </provider>
 103        <!--
 104           This manifest declared broadcast receiver allows us to use an explicit
 105           Intent when creating a PendingItent to be informed of the user's choice
 106        -->
 107        <receiver
-107-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:28:9-34:20
+107-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:28:9-34:20
 108            android:name="dev.fluttercommunity.plus.share.SharePlusPendingIntent"
-108-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:29:13-82
+108-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:29:13-82
 109            android:exported="true" >
-109-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:30:13-36
+109-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:30:13-36
 110            <intent-filter>
-110-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:31:13-33:29
+110-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:31:13-33:29
 111                <action android:name="EXTRA_CHOSEN_COMPONENT" />
-111-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:32:17-65
-111-->[:share_plus] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/share_plus/intermediates/merged_manifest/debug/AndroidManifest.xml:32:25-62
+111-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:32:17-65
+111-->[:share_plus] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\share_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:32:25-62
 112            </intent-filter>
 113        </receiver>
 114
 115        <activity
-115-->[:url_launcher_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-13:74
+115-->[:url_launcher_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-13:74
 116            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
-116-->[:url_launcher_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-74
+116-->[:url_launcher_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-74
 117            android:exported="false"
-117-->[:url_launcher_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
+117-->[:url_launcher_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-37
 118            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-118-->[:url_launcher_android] /Users/akshitsoni/Documents/books/bigbuzz-mobile-app/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
+118-->[:url_launcher_android] C:\Users\HP\bigbuzz-mobile-app\bigbuzz-mobile-app\bIgbuzz\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-71
 119
 120        <uses-library
-120-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+120-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
 121            android:name="androidx.window.extensions"
-121-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+121-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
 122            android:required="false" />
-122-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+122-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
 123        <uses-library
-123-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+123-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
 124            android:name="androidx.window.sidecar"
-124-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+124-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
 125            android:required="false" />
-125-->[androidx.window:window:1.0.0-beta04] /Users/akshitsoni/.gradle/caches/transforms-3/49bc944d29f70d45aa5add8e43e3247e/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+125-->[androidx.window:window:1.0.0-beta04] C:\Users\HP\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
 126    </application>
 127
 128</manifest>
