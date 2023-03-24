@@ -25,6 +25,21 @@ class _LoginPageState extends State<LoginPage> {
   // late String password;
   var isObscured;
   bool visible = true;
+  String? validateEmail(String? value) {
+    const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
+        r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
+        r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
+        r'[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4]'
+        r'[0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9]'
+        r'[0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\'
+        r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
+    final regex = RegExp(pattern);
+
+    return value!.isNotEmpty && !regex.hasMatch(value)
+        ? 'Enter a valid email address'
+        : null;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,10 +99,20 @@ class _LoginPageState extends State<LoginPage> {
                     height: 72,
                   ),
                   TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     autofocus: true,
+                    // autocorrect: true,
                     // keyboardType: TextInputType.number,
                     controller: admin_email,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
+                      errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                          borderRadius: BorderRadius.circular(8)),
+                      focusedErrorBorder: OutlineInputBorder(
+                          borderSide: new BorderSide(
+                              color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                          borderRadius: BorderRadius.circular(8)),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       hintText: "Enter your email",
                       hintStyle: const TextStyle(fontSize: 12),
@@ -96,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.all(Radius.circular(8.0)),
                         borderSide: BorderSide(
                             color:
-                                Color.fromARGB(255, 0, 37, 65)), //<-- SEE HERE
+                            Color.fromARGB(255, 0, 37, 65)), //<-- SEE HERE
                       ),
                       labelText: "email",
                       labelStyle: const TextStyle(
@@ -108,22 +133,17 @@ class _LoginPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.all(Radius.circular(8.0))),
                       isDense: true,
                       prefixIconConstraints:
-                          BoxConstraints(minWidth: 40, minHeight: 0),
+                      BoxConstraints(minWidth: 40, minHeight: 0),
                       // border: InputBorder.none,
                     ),
                     inputFormatters: [LengthLimitingTextInputFormatter(200)],
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Enter your Email';
-                      } else {
-                        return null;
-                      }
-                    },
+                    validator: validateEmail,
                   ),
                   const SizedBox(
                     height: 16,
                   ),
                   TextFormField(
+                    // autovalidateMode: AutovalidateMode.onUserInteraction,
                     obscureText: isObscured,
                     // keyboardType: TextInputType.number,
                     controller: user_password,
@@ -146,20 +166,20 @@ class _LoginPageState extends State<LoginPage> {
                               color: Color.fromARGB(255, 0, 37, 65),
                             ),
                             borderRadius:
-                                BorderRadius.all(Radius.circular(8.0))),
+                            BorderRadius.all(Radius.circular(8.0))),
                         isDense: true,
                         suffixIcon: IconButton(
                             padding: EdgeInsetsDirectional.only(end: 12.0),
                             // myIcon is a 48px-wide widget.
                             icon: isObscured
                                 ? const Icon(
-                                    Icons.visibility,
-                                    color: Colors.grey,
-                                  )
+                              Icons.visibility,
+                              color: Colors.grey,
+                            )
                                 : const Icon(
-                                    Icons.visibility_off,
-                                    color: Color.fromARGB(255, 141, 114, 225),
-                                  ),
+                              Icons.visibility_off,
+                              color: Color.fromARGB(255, 141, 114, 225),
+                            ),
                             onPressed: () {
                               setState(() {
                                 isObscured = !isObscured;
@@ -167,26 +187,26 @@ class _LoginPageState extends State<LoginPage> {
                             })),
                     inputFormatters: [LengthLimitingTextInputFormatter(30)],
                     validator: (value) {
-                      if (value!.isEmpty || value.length > 6) {
+                      if (value!.isEmpty || value.length < 6) {
                         return 'Password is required';
                       } else {
                         return null;
                       }
                     },
                   ),
-                  Container(
-                    // padding: const EdgeInsets.only(left: 8),
-                    alignment: Alignment.bottomRight,
-                    // height: 28,
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        "forget password?",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 141, 114, 225)),
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   // padding: const EdgeInsets.only(left: 8),
+                  //   alignment: Alignment.bottomRight,
+                  //   // height: 28,
+                  //   // child: TextButton(
+                  //   //   onPressed: () {},
+                  //   //   child: const Text(
+                  //   //     "forget password?",
+                  //   //     style: TextStyle(
+                  //   //         color: Color.fromARGB(255, 141, 114, 225)),
+                  //   //   ),
+                  //   // ),
+                  // ),
                   const SizedBox(
                     height: 144,
                   ),
@@ -212,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                           // lightCustomBar();
                           if (responseBody['meta']['code'] == 200) {
                             final SharedPreferences sharedPreferences =
-                                await SharedPreferences.getInstance();
+                            await SharedPreferences.getInstance();
                             sharedPreferences.setString(
                                 '_email', admin_email.text);
 
@@ -221,20 +241,20 @@ class _LoginPageState extends State<LoginPage> {
                                 builder: (context) => const Center(
                                     child: CircularProgressIndicator()));
                             await Future.delayed(const Duration(seconds: 2),
-                                () => Navigator.of(context).pop());
+                                    () => Navigator.of(context).pop());
 
                             Navigator.of(context)
                                 .pushReplacement(MaterialPageRoute(
                               builder: (BuildContext context) =>
-                                  // Teamregistration()
-                                  const CardScreenPage(),
+                              // Teamregistration()
+                              const CardScreenPage(),
                             ));
                           }
                         }
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: admin_email.text.isEmpty ||
-                                  user_password.text.isEmpty
+                              user_password.text.isEmpty
                               ? Color.fromARGB(255, 177, 156, 227)
                               : Color.fromARGB(255, 108, 74, 182),
                           shape: RoundedRectangleBorder(
@@ -271,7 +291,7 @@ class _LoginPageState extends State<LoginPage> {
       var token = data['token'];
       // NEW CHANGES
       final SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+      await SharedPreferences.getInstance();
       sharedPreferences.setString('token', token);
       //
       print('Login successfully');

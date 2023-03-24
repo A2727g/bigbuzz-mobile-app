@@ -21,6 +21,7 @@ class CardScreenPage extends StatefulWidget {
   @override
   State<CardScreenPage> createState() => _CardScreenPageState();
 }
+//setup
 
 class _CardScreenPageState extends State<CardScreenPage> {
   List ticketList = [];
@@ -31,7 +32,7 @@ class _CardScreenPageState extends State<CardScreenPage> {
 
   Future<void> getUserData() async {
     final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    await SharedPreferences.getInstance();
 
 
 
@@ -43,15 +44,20 @@ class _CardScreenPageState extends State<CardScreenPage> {
   }
 
   String getDate(String? date) {
-    if (date != null) {
+    if (date != null && date.trim() != "" &&  date != 'null') {
+      // logPrint.w(date,'45');
       var value = date.toString().split('T').toList().first;
-      var formattedDate = DateFormat('d MMM y', 'en_US')
-          .format(DateTime(
-              int.parse(value.toString().split('-')[0]),
-              int.parse(value.toString().split('-')[1]),
-              int.parse(value.toString().split('-')[2])))
-          .toString();
-      return formattedDate;
+      // logPrint.w(value,'12');
+      if(value!=null){
+        var formattedDate = DateFormat('d MMM y', 'en_US')
+            .format(DateTime(
+            int.parse(value.toString().split('-')[0]),
+            int.parse(value.toString().split('-')[1]),
+            int.parse(value.toString().split('-')[2])))
+            .toString();
+        return formattedDate;
+      }
+      return '';
     }
     return '';
   }
@@ -77,7 +83,7 @@ class _CardScreenPageState extends State<CardScreenPage> {
 
   Future<dynamic> fetchStates() async {
     final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    await SharedPreferences.getInstance();
 
     var token = sharedPreferences.getString('token');
 
@@ -150,99 +156,99 @@ class _CardScreenPageState extends State<CardScreenPage> {
         },
         child: isLoading
             ? Container(
-                height: double.infinity,
-                width: double.infinity,
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: 30,
-                  width: 30,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                    color: Colors.deepPurple,
-                  ),
-                ),
-              )
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 30,
+            width: 30,
+            child: CircularProgressIndicator(
+              strokeWidth: 2.5,
+              color: Colors.deepPurple,
+            ),
+          ),
+        )
             : (ticketList.isNotEmpty)
-                ? ListView.builder(
-                    itemCount: ticketList.length, //No. of tickets
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          TicketCard(
-                            img: '${ticketList[index]['img']}',
-                            location: ticketList[index]['campaign_location'] ==
-                                    null
-                                ? ""
-                                : '${ticketList[index]['campaign_location']}',
-                            ticketCategory:
-                                '${ticketList[index]['campaign_description']}',
-                            ticketCampaignTitle:
-                                '${ticketList[index]['campaign_title']}',
-                            startDate:
-                                getDate('${ticketList[index]['start_date']}'),
-                            endDate:
-                                getDate('${ticketList[index]['end_date']}'),
-                            compaignStatus:
-                                '${ticketList[index]['campaign_status']}',
-                            campaignId: ticketList[index]["campaign_id"],
-                            userData: userData,
-                            campaignDescription:
-                                ticketList[index]['campaign_description'] ?? "",
-                            campaignIntroVideoUrl: ticketList[index]
-                                    ['campaign_intro_video_url'] ??
-                                "",
-                            compaignDuration:
-                                ticketList[index]['campaign_duration'] ?? "",
-                            fetchCampaignData: fetchAndSetData,
-                          ),
-                          if (index == ticketList.length - 1)
-                            const SizedBox(
-                              height: 160,
-                            )
-                        ],
-                      );
-                    })
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                            height: 280,
-                            child: Image.asset(
-                                fit: BoxFit.cover, "assets/image/empty.png")),
-                        Text(
-                          'Oops!',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 131, 145, 161),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "Campaign not found !",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 131, 145, 161),
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
+            ? ListView.builder(
+            itemCount: ticketList.length, //No. of tickets
+            itemBuilder: (context, index) {
+              logPrint.w(ticketList.length,'aaa');
+              return Column(
+                children: [
+                  TicketCard(
+                    img: '${ticketList[index]['img']}',
+                    location: ticketList[index]['campaign_location'] ==
+                        null
+                        ? ""
+                        : '${ticketList[index]['campaign_location']}',
+                    ticketCategory:
+                    '${ticketList[index]['campaign_description']}',
+                    ticketCampaignTitle:
+                    '${ticketList[index]['campaign_title']}',
+                    startDate:
+                    getDate('${ticketList[index]['start_date']}'),
+                    endDate:
+                    getDate('${ticketList[index]['end_date']}'),
+                    compaignStatus:
+                    '${ticketList[index]['campaign_status']}',
+                    campaignId: ticketList[index]["campaign_id"],
+                    userData: userData,
+                    campaignDescription:
+                    ticketList[index]['campaign_description'] ?? "",
+                    campaignIntroVideoUrl: ticketList[index]
+                    ['campaign_intro_video_url'] ??
+                        "",
+                    compaignDuration:
+                    ticketList[index]['campaign_duration'] ?? "",
+                    fetchCampaignData: fetchAndSetData,
                   ),
+                  if (index == ticketList.length - 1)
+                    const SizedBox(
+                      height: 160,
+                    )
+                ],
+              );
+            })
+            : Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                  height: 280,
+                  child: Image.asset(
+                      fit: BoxFit.cover, "assets/image/empty.png")),
+              Text(
+                'Oops!',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 131, 145, 161),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Campaign not found !",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 131, 145, 161),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
 
   Future<dynamic> fetchCampaign(Map? filterData) async {
 
-   logPrint.w(filterData);
+    logPrint.w(filterData);
 
     // logPrint.w(ticketList);
-
 
     var endPoint = "getCampaignByFos";
 
     setFilterParams(filterData);
     final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
+    await SharedPreferences.getInstance();
     var token = sharedPreferences.getString('token');
     var headers = <String, String>{
       "Authorization": token!,
@@ -261,18 +267,25 @@ class _CardScreenPageState extends State<CardScreenPage> {
       }
     }
     String url = "https://api.bigbuzzapp.com/campaign/$endPoint";
-    print(url);
-    logPrint.w(body);
+    logPrint.w(url,'111');
+    // logPrint.w(body);
     final response =
-        await http.post(Uri.parse(url), body: body, headers: headers);
+    await http.post(Uri.parse(url), body: body, headers: headers);
     print(json.decode(response.body));
+
+    logPrint.w(response.body);
+
+    // logPrint.w(ticketList,'adad');
 
     // If the server did return a 200 OK response,
     // then parse the JSON.
     var responseBody = jsonDecode(response.body);
     print(responseBody);
     if (responseBody['meta']['code'] == 200) {
-      ticketList.addAll(responseBody!['data']);
+
+      ticketList.clear();
+      ticketList =responseBody!['data'];
+
       setLoader(false);
 
 
@@ -280,6 +293,7 @@ class _CardScreenPageState extends State<CardScreenPage> {
     } else {
       print('//////////EMPTY');
       ticketList = [];
+      // logPrint.w(ticketList,'aaaaa');
       setLoader(false);
       // If the server did not return a 200 OK response,
       // then throw an exception.
@@ -290,7 +304,10 @@ class _CardScreenPageState extends State<CardScreenPage> {
   setFilterParams(Map? filterData) {
     if (filterData != null) {
       filterParams = filterParams!.copyWith(
-          fromDate: filterData['date'], selectedStatus: filterData['location']);
+          fromDate: filterData['date'] == ""
+              ? DateFormat("yyyy-MM-dd").format(DateTime.now())
+              : filterData['date'],
+          selectedStatus: filterData['location']);
     }
   }
 }
