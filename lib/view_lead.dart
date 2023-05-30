@@ -69,6 +69,8 @@ class _ViewLeadScreenState extends State<ViewLeadScreen> {
     } else {
       ticketList = [];
     }
+
+    setState(() {});
   }
 
   @override
