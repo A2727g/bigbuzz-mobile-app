@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bigbuzz/question_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:bigbuzz/constants.dart';
@@ -133,23 +134,18 @@ class _ViewLeadScreenState extends State<ViewLeadScreen> {
                               context, ticketList[index]['feedback']);
                         }
                       },
-                      child: Column(
-                        children: [
-                          TicketCard(
-                            status1: '${ticketList[index]['status']}',
-                            status2: '${ticketList[index]['status']}',
-                            ticketCategory:
-                                '${ticketList[index]['ticketCategory']} ',
-                            ticketName: '${ticketList[index]['tittle']}',
-                            createdAt: ticketList[index]['created_at'],
-                            updatedAt: ticketList[index]['updated_at'],
-                            campaignId: widget.campaignId,
-                          ),
-                          if (index == ticketList.length - 1)
-                            const SizedBox(
-                              height: 160,
-                            )
-                        ],
+                      child: TicketCard(
+                        status1: '${ticketList[index]['status']}',
+                        status2: '${ticketList[index]['status']}',
+                        ticketCategory:
+                            '${ticketList[index]['ticketCategory']} ',
+                        ticketName: '${ticketList[index]['tittle']}',
+                        createdAt: ticketList[index]['created_at'],
+                        updatedAt: ticketList[index]['updated_at'],
+                        campaignId: widget.campaignId,
+                        leadId: ticketList[index]['lead_id'],
+                        userData: userData,
+                        fetchLeadData: fetchLeadData,
                       ),
                     );
                   })
@@ -196,16 +192,20 @@ class _ViewLeadScreenState extends State<ViewLeadScreen> {
 }
 
 class TicketCard extends StatelessWidget {
-  const TicketCard(
-      {super.key,
-      this.ticketName,
-      this.ticketCategory,
-      this.status1,
-      this.status2,
-      this.dateTime,
-      required this.campaignId,
-      this.createdAt,
-      this.updatedAt});
+  const TicketCard({
+    super.key,
+    this.ticketName,
+    this.ticketCategory,
+    this.status1,
+    this.status2,
+    this.dateTime,
+    required this.campaignId,
+    this.createdAt,
+    this.updatedAt,
+    this.leadId,
+    this.userData,
+    this.fetchLeadData,
+  });
   final String? ticketName;
   final String? ticketCategory;
   final String? status1;
@@ -214,6 +214,9 @@ class TicketCard extends StatelessWidget {
   final int campaignId;
   final String? updatedAt;
   final String? createdAt;
+  final int? leadId;
+  final Map? userData;
+  final Future<void> Function()? fetchLeadData;
 
   static const Map<String, Color> statusColorMap = {
     'open': ColorConstants.openStatus,
@@ -258,7 +261,9 @@ class TicketCard extends StatelessWidget {
           int.parse(value.split('-')[2]), int.parse(value.split('-')[1]));
     }
     var textTheme = Theme.of(context).textTheme;
+
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(16),
       child: Card(
         child: Padding(
@@ -268,13 +273,15 @@ class TicketCard extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Initials
                   Container(
                     alignment: Alignment.center,
                     constraints: const BoxConstraints(
                       maxHeight: 44,
                       maxWidth: 44,
                     ),
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(10),
+                    margin: EdgeInsets.only(top: 10),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(4),
@@ -291,84 +298,122 @@ class TicketCard extends StatelessWidget {
                   const SizedBox(
                     width: 16,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        ticketName ?? '',
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Color.fromRGBO(0, 0, 0, 1)),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Updated:',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: Colors.grey),
-                          ),
-                          Text(
-                            date != null
-                                ?
-                                // dateTime??''.
-                                DateFormat("  dd/MMM/yyyy").format(date)
-                                : "",
-                            textAlign: TextAlign.left,
-                            style: textTheme.labelLarge!.copyWith(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      Row(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                            decoration: BoxDecoration(
-                                border: const Border(),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                color: statusColorMap[status1!.toLowerCase()]),
-                            child: Text(
-                              '$status1',
-                              style: textTheme.caption!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 8,
-                                  color:
-                                      status1ColorMap[status1!.toLowerCase()]),
+                  // details
+                  Flexible(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                ticketName ?? '',
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromRGBO(0, 0, 0, 1)),
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          if (status2!.isNotEmpty)
+                            if (status1 != 'Done')
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return QuestionScreenPage(
+                                          fetchCampaignData: fetchLeadData!,
+                                          campaignId: campaignId,
+                                          userData: userData!,
+                                          leadId: leadId,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.edit,
+                                  size: 20,
+                                  color: Colors.grey[500],
+                                ),
+                              ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Updated:',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: Colors.grey),
+                            ),
+                            Text(
+                              date != null
+                                  ?
+                                  // dateTime??''.
+                                  DateFormat("  dd/MMM/yyyy").format(date)
+                                  : "",
+                              textAlign: TextAlign.left,
+                              style: textTheme.labelLarge!.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Row(
+                          children: [
                             Container(
                               padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                               decoration: BoxDecoration(
-                                border: const Border(),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4)),
-                                color: status2ColorMap[status2!.toLowerCase()]
-                                    ?.withOpacity(0.5),
+                                  border: const Border(),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4)),
+                                  color:
+                                      statusColorMap[status1!.toLowerCase()]),
+                              child: Text(
+                                '$status1',
+                                style: textTheme.caption!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 8,
+                                    color: status1ColorMap[
+                                        status1!.toLowerCase()]),
                               ),
-                            )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 12,
-                      ),
-                    ],
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            if (status2!.isNotEmpty)
+                              Container(
+                                padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                decoration: BoxDecoration(
+                                  border: const Border(),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4)),
+                                  color: status2ColorMap[status2!.toLowerCase()]
+                                      ?.withOpacity(0.5),
+                                ),
+                              )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -409,7 +454,7 @@ class TicketCard extends StatelessWidget {
                                     );
                                   },
                                 )
-                              : SizedBox.shrink()
+                              : SizedBox.shrink(),
                         ]),
                       ])
                 ],

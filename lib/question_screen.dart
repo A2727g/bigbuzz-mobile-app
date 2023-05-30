@@ -25,73 +25,49 @@ enum ValidateType {
   date,
 }
 
-File? imgFile;
-final imgPicker = ImagePicker();
-
 class QuestionScreenPage extends StatefulWidget {
   final Future<void> Function() fetchCampaignData;
   final int campaignId;
   final Map userData;
+  final int? leadId;
 
-  const QuestionScreenPage(
-      {required this.fetchCampaignData,
-      required this.campaignId,
-      required this.userData,
-      super.key});
+  const QuestionScreenPage({
+    required this.fetchCampaignData,
+    required this.campaignId,
+    required this.userData,
+    this.leadId,
+    super.key,
+  });
   @override
   State<QuestionScreenPage> createState() => _QuestionScreenPageState();
 }
 
 class _QuestionScreenPageState extends State<QuestionScreenPage> {
   final TextEditingController _controller = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
   bool isLoading = false;
   bool validate = true;
   QuestionNairModel? questionnairData;
   List<AnswerModel> answersList = [];
+
   String? title;
 
   @override
-  void didChangeDependencies() async {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-  }
-
-  void getCurrentPosition() async {
-    //permissio
-    LocationPermission permission = await Geolocator.checkPermission();
-    // Position position = await Geolocator.getCurrentPosition
-    //   (desiredAccuracy: LocationAccuracy.high);
-
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      logPrint.w('permission not given');
-      LocationPermission asked = await Geolocator.requestPermission();
-    } else {
-      Position currentPosition = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-      logPrint.w('la' + currentPosition.latitude.toString());
-      logPrint.w('lo' + currentPosition.longitude.toString());
-      // logPrint.w('aaaaaaaa');
-    }
-  }
-
-  @override
   void initState() {
-    print(widget.campaignId);
-    setState(() {
-      isLoading = true;
-    });
+    setState(
+      () {
+        isLoading = true;
+      },
+    );
     fetchQuestionData(campaignId: widget.campaignId);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     MediaQuery.of(context).size;
-    return isLoading
+    return (isLoading)
         ? Container(
             height: double.infinity,
             width: double.infinity,
@@ -107,9 +83,6 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
             ),
           )
         : Scaffold(
-            // drawer: DrawerScreenPage(
-            //   userData: widget.userData,
-            // ),
             appBar: AppBar(
               leading: IconButton(
                 onPressed: () {
@@ -124,30 +97,24 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                 ),
               ),
               backgroundColor: Colors.white,
-              iconTheme: Theme.of(context)
-                  .iconTheme
-                  .copyWith(color: const Color.fromARGB(255, 0, 37, 65)),
+              iconTheme: Theme.of(context).iconTheme.copyWith(
+                    color: const Color.fromARGB(255, 0, 37, 65),
+                  ),
               shadowColor: Colors.black,
               elevation: 2,
               title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      questionnairData == null
+                      (questionnairData == null)
                           ? ""
-                          : questionnairData!.title ?? "",
+                          : (questionnairData!.title ?? ""),
                       style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color.fromRGBO(0, 37, 65, 1.0)),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(0, 37, 65, 1.0),
+                      ),
                     ),
-                    // Text(
-                    //   '10/1',
-                    //   style: TextStyle(
-                    //       fontSize: 14,
-                    //       fontWeight: FontWeight.w600,
-                    //       color: Color.fromRGBO(0, 37, 65, 1.0)),
-                    // )
                   ]),
             ),
             body: SingleChildScrollView(
@@ -161,66 +128,78 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                       if (validate == false &&
                           (title == null || title!.trim() == ""))
                         Padding(
-                            padding: EdgeInsets.only(top: 15, bottom: 10),
-                            child: Text(
-                              'Please provide an answer',
-                              style: TextStyle(color: Colors.red),
-                            )),
+                          padding: EdgeInsets.only(top: 15, bottom: 10),
+                          child: Text(
+                            ('Please provide an answer'),
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
                       if (questionnairData != null &&
                           questionnairData!.questions.isNotEmpty)
                         Padding(
-                            padding: EdgeInsets.only(left: 8.0, bottom: 12),
-                            child: Text(
-                              "1.Title",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                              ),
-                            )),
+                          padding: EdgeInsets.only(left: 8.0, bottom: 12),
+                          child: Text(
+                            ("1.Title"),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                       if (questionnairData != null &&
                           questionnairData!.questions.isNotEmpty)
                         Padding(
-                          padding: const EdgeInsets.only(left: 8, bottom: 15),
+                          padding: const EdgeInsets.only(
+                            left: 8,
+                            bottom: 15,
+                          ),
                           child: Center(
                             child: TextFormField(
-                              // DEFAULT VALUE
                               keyboardType: TextInputType.text,
                               controller: _controller,
-                              // PrefilTextEditingController.from(title ?? ""),
                               decoration: InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
-                                    vertical: 2, horizontal: 12),
+                                  vertical: 2,
+                                  horizontal: 12,
+                                ),
                                 errorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(0, 37, 65, 1),
-                                        width: 1),
-                                    borderRadius: BorderRadius.circular(14)),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromRGBO(0, 37, 65, 1),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
                                 focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(0, 37, 65, 1),
-                                        width: 1),
-                                    borderRadius: BorderRadius.circular(14)),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromRGBO(0, 37, 65, 1),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
                                 filled: true,
                                 hintText: 'Add Title',
                                 hintStyle: const TextStyle(
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(131, 145, 161, 1)),
+                                  fontSize: 14,
+                                  color: Color.fromRGBO(131, 145, 161, 1),
+                                ),
                                 fillColor: Colors.white,
                                 border: const OutlineInputBorder(),
                                 enabledBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(0, 37, 65, 1),
-                                        width: 1),
-                                    borderRadius: BorderRadius.circular(14)),
+                                  borderSide: const BorderSide(
+                                    color: Color.fromRGBO(0, 37, 65, 1),
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
                                 focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                        color: Color.fromRGBO(0, 37, 65, 1),
-                                        width: 1),
-                                    borderRadius: BorderRadius.circular(14)),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromRGBO(0, 37, 65, 1),
+                                      width: 1),
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
                               ),
                               onSaved: (text) {
                                 title = text;
-                                // setState(() {});
                               },
                             ),
                           ),
@@ -228,16 +207,16 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                       if (questionnairData != null &&
                           questionnairData!.questions.isNotEmpty)
                         ListView.builder(
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemCount: questionnairData!.questions.length,
-                            itemBuilder: (context, index) {
-                              return _buildInputWidget(
-                                questionData:
-                                    questionnairData!.questions[index],
-                                index: index + 2,
-                              );
-                            }),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: questionnairData!.questions.length,
+                          itemBuilder: (context, index) {
+                            return _buildInputWidget(
+                              questionData: questionnairData!.questions[index],
+                              index: index + 2,
+                            );
+                          },
+                        ),
                     ],
                   ),
                 ),
@@ -245,82 +224,50 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
             ),
             bottomNavigationBar: Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
-              decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(
-                  color: Colors.grey[300]!,
-                  blurRadius: 10.0,
-                ),
-              ]),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey[300]!,
+                    blurRadius: 10.0,
+                  ),
+                ],
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: ElevatedButton(
                   onPressed: () async {
                     validate = true;
-                    answersList.forEach((element) {
-                      if (element.isFieldMandatory &&
-                          !element.isDataValidated &&
-                          !_formKey.currentState!.validate()) {
-                        validate = false;
-                        setState(() {});
-                      }
-                    });
-                    print(validate);
+                    answersList.forEach(
+                      (element) {
+                        if (element.isFieldMandatory &&
+                            !element.isDataValidated &&
+                            !_formKey.currentState!.validate()) {
+                          validate = false;
+                          setState(() {});
+                        }
+                      },
+                    );
                     if (validate) {
                       _formKey.currentState!.save();
                       await addLead();
                     }
-                    // answersList.forEach((element) async {
-                    //   if (element.imageFile != null) {
-                    //     var responseBody =
-                    //         await uploadFile(element.imageFile!);
-
-                    //     print(responseBody);
-                    //     if (responseBody != null &&
-                    //         responseBody['data'].containsKey('file_url')) {
-                    //       for (AnswerModel answer in answersList) {
-                    //         if (answer.questionId == element.questionId) {
-                    //           element.value =
-                    //               responseBody['data']['file_url'];
-                    //           if (answer.isFieldMandatory) {
-                    //             answer.isDataValidated =
-                    //                 answer.value != null && answer.value != ""
-                    //                     ? true
-                    //                     : false;
-                    //             setState(() {});
-                    //           }
-                    //         }
-                    //       }
-                    //     }
-                    //   }
-                    // });
-
-                    // validate = true;
-                    // answersList.forEach((element) {
-                    //   if (element.isFieldMandatory &&
-                    //       !element.isDataValidated) {
-                    //     validate = false;
-                    //     setState(() {});
-                    //   }
-                    // });
-
-                    // if (title == null || title == "") {
-                    //   validate = false;
-                    // }
-                    // print(validate);
-                    // if (validate) {
-                    //   await addLead();
-                    // }
                   },
                   style: ElevatedButton.styleFrom(
-                      elevation: 10,
-                      minimumSize: const Size(double.maxFinite, 52),
-                      backgroundColor: Colors.deepPurple,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12))),
+                    elevation: 10,
+                    minimumSize: const Size(double.maxFinite, 52),
+                    backgroundColor: Colors.deepPurple,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Text("Submit", style: TextStyle(fontSize: 20)),
+                      Text(
+                        "Submit",
+                        style: TextStyle(fontSize: 20),
+                      ),
                       SizedBox(
                         width: 8,
                       ),
@@ -335,6 +282,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
   Widget _buildInputWidget(
       {required QuestionDataModel questionData, required int index}) {
     var isDataNotValid = false;
+
     for (AnswerModel element in answersList) {
       if (questionData.questionId == element.questionId &&
           element.isFieldMandatory &&
@@ -348,27 +296,28 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
       children: [
         if (validate == false && isDataNotValid)
           Padding(
-              padding: EdgeInsets.only(top: 15, bottom: 10),
-              child: Text(
-                'Please provide an answer',
-                style: TextStyle(color: Colors.red),
-              )),
-        Padding(
-            padding: EdgeInsets.only(left: 8.0, bottom: 10),
+            padding: EdgeInsets.only(top: 15, bottom: 10),
             child: Text(
-              "$index.${questionData.question ?? ""}",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-              ),
-            )),
+              ('Please provide an answer'),
+              style: TextStyle(color: Colors.red),
+            ),
+          ),
+        Padding(
+          padding: EdgeInsets.only(left: 8.0, bottom: 10),
+          child: Text(
+            ("$index.${questionData.question ?? ""}"),
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+          ),
+        ),
         // TEXT
         if (questionData.questionType == 'text')
           Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Center(
               child: TextFormField(
-                // DEFAULT VALUE
                 controller: PrefilTextEditingController.from(
                     getAnswerValue(questionData.questionId!) ?? ""),
                 keyboardType: TextInputType.text,
@@ -376,34 +325,39 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 2, horizontal: 12),
                   errorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                      borderRadius: BorderRadius.circular(14)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   focusedErrorBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                      borderRadius: BorderRadius.circular(14)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   filled: true,
                   hintText: 'Your answer',
                   hintStyle: const TextStyle(
-                      fontSize: 14, color: Color.fromRGBO(131, 145, 161, 1)),
+                    fontSize: 14,
+                    color: Color.fromRGBO(131, 145, 161, 1),
+                  ),
                   fillColor: Colors.white,
                   border: const OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                      borderRadius: BorderRadius.circular(14)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                      borderRadius: BorderRadius.circular(14)),
+                    borderSide: const BorderSide(
+                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                 ),
                 onChanged: (text) {
                   var index = getAnswerIndex(questionData.questionId!);
                   if (index != null) {
                     answersList[index].value = text;
 
-                    // validate
                     if (answersList[index].isFieldMandatory) {
                       answersList[index].isDataValidated =
                           answersList[index].value != null &&
@@ -416,7 +370,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
               ),
             ),
           ),
-        // RADIO - GROUP
+        // Radio Group
         if (questionData.questionType == "radio-group" &&
             questionData.questionChoices != null)
           for (QuestionChoiceModel choice in questionData.questionChoices!)
@@ -437,16 +391,18 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                         answer.questionId == questionData.questionId);
 
                     if (index != -1) {
-                      setState(() {
-                        answersList[index].value = value;
-                        if (answersList[index].isFieldMandatory) {
-                          answersList[index].isDataValidated =
-                              answersList[index].value != null &&
-                                      answersList[index].value != ""
-                                  ? true
-                                  : false;
-                        }
-                      });
+                      setState(
+                        () {
+                          answersList[index].value = value;
+                          if (answersList[index].isFieldMandatory) {
+                            answersList[index].isDataValidated =
+                                answersList[index].value != null &&
+                                        answersList[index].value != ""
+                                    ? true
+                                    : false;
+                          }
+                        },
+                      );
                     }
                   },
                 ),
@@ -458,7 +414,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                 ),
               ],
             ),
-        // DATE  default value
+        // DATE
         if (questionData.questionType == "date")
           StatefulBuilder(builder: (context, changeState) {
             return Padding(
@@ -468,27 +424,37 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
+                        color: Color.fromRGBO(0, 37, 65, 1),
+                        width: 1,
+                      ),
                       borderRadius: BorderRadius.circular(14)),
                   enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                      borderRadius: BorderRadius.circular(14)),
+                    borderSide: const BorderSide(
+                      color: Color.fromRGBO(0, 37, 65, 1),
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
                   hintStyle: TextStyle(color: Colors.black45),
                   errorStyle: TextStyle(color: Colors.redAccent),
                   border: OutlineInputBorder(),
                   suffixIcon: Icon(Icons.date_range),
                   labelText: 'Select date',
                   labelStyle: const TextStyle(
-                      fontSize: 14, color: Color.fromRGBO(131, 145, 161, 1)),
+                    fontSize: 14,
+                    color: Color.fromRGBO(131, 145, 161, 1),
+                  ),
                 ),
                 firstDate: DateTime(1950),
                 lastDate: DateTime(2099),
                 initialDate: getDateTimeFromString(
-                    getAnswerValue(questionData.questionId!)),
+                  getAnswerValue(questionData.questionId!),
+                ),
+                initialValue: getDateTimeFromString(
+                  getAnswerValue(questionData.questionId!),
+                ),
                 onDateSelected: (DateTime value) {
                   var index = getAnswerIndex(questionData.questionId!);
-                  print(index);
                   if (index != null) {
                     answersList[index].value = value.toString();
                     if (answersList[index].isFieldMandatory) {
@@ -524,18 +490,20 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                       unselectedWidgetColor: Colors.grey,
                     ),
                     child: Checkbox(
-                        activeColor: Colors.deepPurple,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(2)),
-                        value: answerValue == null
-                            ? false
-                            : answerValue == choiceValue
-                                ? true
-                                : false,
-                        onChanged: (_) {
-                          var index = getAnswerIndex(questionData.questionId!);
-                          if (index != null) {
-                            setState(() {
+                      activeColor: Colors.deepPurple,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(2)),
+                      value: answerValue == null
+                          ? false
+                          : answerValue == choiceValue
+                              ? true
+                              : false,
+                      onChanged: (_) {
+                        var index = getAnswerIndex(questionData.questionId!);
+                        if (index != null) {
+                          setState(
+                            () {
+                              print(choiceValue);
                               answersList[index].value = choiceValue;
                               if (answersList[index].isFieldMandatory) {
                                 answersList[index].isDataValidated =
@@ -543,12 +511,12 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                                             answersList[index].value != ""
                                         ? true
                                         : false;
-
-                                print('${answersList[index].isDataValidated}');
                               }
-                            });
-                          }
-                        }),
+                            },
+                          );
+                        }
+                      },
+                    ),
                   ),
                   Text(
                     choiceText,
@@ -602,11 +570,12 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                       TextButton(
                         style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll<Color>(
-                              Colors.grey[200]!),
+                            Colors.grey[200]!,
+                          ),
                         ),
                         child: const Text(
                           textAlign: TextAlign.center,
-                          "Take a photo or upload",
+                          ("Take a photo or upload"),
                           style: TextStyle(
                             color: Color.fromRGBO(108, 74, 182, 1),
                           ),
@@ -615,59 +584,18 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                           showOptionsDialog(context, questionData);
                           getCurrentPosition();
                         },
-                        // async {
-                        //   ImagePicker imagePicker = ImagePicker();
-                        //
-                        //   var index =
-                        //       getAnswerIndex(questionData.questionId!);
-                        //   try {
-                        //     final image = await imagePicker.pickImage(
-                        //         source: ImageSource.gallery);
-                        //     if (image != null && index != null) {
-                        //       setState(() {
-                        //         answersList[index].value = image.path;
-                        //         answersList[index].imageFile =
-                        //             File(image.path);
-                        //       });
-                        //       var responseBody =
-                        //           await uploadFile(File(image.path));
-                        //
-                        //       print(responseBody);
-                        //       if (responseBody != null &&
-                        //           responseBody['data']
-                        //               .containsKey('file_url')) {
-                        //         for (AnswerModel answer in answersList) {
-                        //           if (answer.questionId ==
-                        //               questionData.questionId) {
-                        //             answer.value =
-                        //                 responseBody['data']['file_url'];
-                        //             if (answer.isFieldMandatory) {
-                        //               answer.isDataValidated =
-                        //                   answer.value != null &&
-                        //                           answer.value != ""
-                        //                       ? true
-                        //                       : false;
-                        //               setState(() {});
-                        //             }
-                        //           }
-                        //         }
-                        //       }
-                        //     }
-                        //   } catch (e, s) {
-                        //     logPrint.w(e, 'get image ticket form page $e $s');
-                        //   }
-                        // }
                       ),
                     if (getAnswerValue(questionData.questionId!) == null)
                       const SizedBox(
                         width: 250,
                         child: FittedBox(
                           child: Text(
-                            "file extensions supported, pdf, doc, docx, jpeg, jpg, png",
+                            ("file extensions supported, pdf, doc, docx, jpeg, jpg, png"),
                             style: TextStyle(
-                                fontSize: 10,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.black45),
+                              fontSize: 10,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.black45,
+                            ),
                           ),
                         ),
                       ),
@@ -676,11 +604,13 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                         onTap: () {
                           var index = getAnswerIndex(questionData.questionId!);
                           if (index != null) {
-                            setState(() {
-                              answersList[index].value = null;
-                              answersList[index].isDataValidated = false;
-                              answersList[index].imageFile = null;
-                            });
+                            setState(
+                              () {
+                                answersList[index].value = null;
+                                answersList[index].isDataValidated = false;
+                                answersList[index].imageFile = null;
+                              },
+                            );
                           }
                         },
                         child: Container(
@@ -688,11 +618,12 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                           width: 250,
                           alignment: Alignment.center,
                           child: Text(
-                            "Remove Image",
+                            ("Remove Image"),
                             style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                color: Colors.deepPurple),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400,
+                              color: Colors.deepPurple,
+                            ),
                           ),
                         ),
                       ),
@@ -701,7 +632,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
               ),
             ),
           ),
-        //TEXT AREA
+        // TEXT AREA
         if (questionData.questionType == "textarea")
           Container(
             padding: const EdgeInsets.only(left: 8),
@@ -718,30 +649,46 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                   ""),
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 15, horizontal: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 15,
+                  horizontal: 12,
+                ),
                 errorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                    borderRadius: BorderRadius.circular(14)),
+                  borderSide: const BorderSide(
+                    color: Color.fromRGBO(0, 37, 65, 1),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 focusedErrorBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                    borderRadius: BorderRadius.circular(14)),
+                  borderSide: const BorderSide(
+                    color: Color.fromRGBO(0, 37, 65, 1),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 filled: true,
-                hintText: 'Your answer...',
+                hintText: ('Your answer...'),
                 hintStyle: const TextStyle(
-                    fontSize: 14, color: Color.fromRGBO(131, 145, 161, 1)),
+                  fontSize: 14,
+                  color: Color.fromRGBO(131, 145, 161, 1),
+                ),
                 fillColor: Colors.white,
                 border: const OutlineInputBorder(),
                 enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                    borderRadius: BorderRadius.circular(14)),
+                  borderSide: const BorderSide(
+                    color: Color.fromRGBO(0, 37, 65, 1),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
                 focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromRGBO(0, 37, 65, 1), width: 1),
-                    borderRadius: BorderRadius.circular(14)),
+                  borderSide: const BorderSide(
+                    color: Color.fromRGBO(0, 37, 65, 1),
+                    width: 1,
+                  ),
+                  borderRadius: BorderRadius.circular(14),
+                ),
               ),
               onChanged: (text) {
                 var index = answersList.indexWhere(
@@ -754,8 +701,6 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
                                 answersList[index].value != ""
                             ? true
                             : false;
-
-                    print('${answersList[index].isDataValidated}');
                   }
                 }
               },
@@ -778,7 +723,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
     var headers = <String, String>{
       "Authorization": token!,
     };
-    print('request body : $requestBody headers : $headers');
+
     final response = await http.post(
       uri,
       body: requestBody,
@@ -787,9 +732,7 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
 
     var responseBody = jsonDecode(response.body);
 
-    logPrint.w(response.body, '1111');
-
-    // print(responseBody);
+    logPrint.i(responseBody);
 
     if (responseBody['meta']['code'] == 200) {
       Map<String, dynamic> data = responseBody['data'];
@@ -799,110 +742,80 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
       if (questionnairData == null) {
         Navigator.of(context).pop();
         Fluttertoast.showToast(
-            msg: 'No Data Found',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 2,
-            backgroundColor: Colors.black,
-            fontSize: 15);
+          msg: 'No Data Found',
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2,
+          backgroundColor: Colors.black,
+          fontSize: 15,
+        );
       }
     }
-    logPrint.w(responseBody['data']);
+
     if (questionnairData != null) {
-      questionnairData!.questions.forEach((element) {
-        answersList.add(AnswerModel(
-          questionId: element.questionId!,
-          value: element.questionType == "image"
-              ? element.defaultValue == ""
-                  ? null
-                  : element.defaultValue
-              : element.defaultValue,
-          isFieldMandatory: element.isRequired == 1 ? true : false,
-          isDataValidated:
-              element.defaultValue != null && element.defaultValue != ""
-                  ? true
-                  : false,
-        ));
-      });
+      questionnairData!.questions.forEach(
+        (element) {
+          answersList.add(
+            AnswerModel(
+              questionId: element.questionId!,
+              value: element.questionType == "image"
+                  ? element.defaultValue == ""
+                      ? null
+                      : element.defaultValue
+                  : element.defaultValue,
+              isFieldMandatory: element.isRequired == 1 ? true : false,
+              isDataValidated:
+                  element.defaultValue != null && element.defaultValue != ""
+                      ? true
+                      : false,
+            ),
+          );
+        },
+      );
     }
-    setState(() {
-      isLoading = false;
-    });
+
+    if (widget.leadId != null) {
+      await getAnswers();
+    }
+
+    setState(
+      () {
+        isLoading = false;
+      },
+    );
   }
-
-  // Future<dynamic> uploadFile(File? imageFile) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final String? token = prefs.getString('token');
-  //   var imagePath = imageFile!.path;
-  //   var request = await http.MultipartRequest(
-  //       'POST', Uri.parse('https://api.bigbuzzapp.com/file/upload'));
-
-  //   request.headers.putIfAbsent('Authorization', () => token!);
-
-  //   request.files.add(await http.MultipartFile.fromPath(
-  //     'file',
-  //     imagePath,
-  //   ));
-
-  //   var res = await request.send();
-  //   var streamDecodedValue = await utf8.decodeStream(res.stream);
-  //   var responseBody = jsonDecode(streamDecodedValue);
-  //   print(responseBody);
-  //   if (responseBody['meta']['code'] == 200) {
-  //     return responseBody;
-  //   }
-  // }
-  // Future<dynamic> uploadFile(File? imageFile) async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   final String? token = prefs.getString('token');
-  //   if (token == null) {
-  //     return null;
-  //   }
-  //   var imagePath = imageFile?.path;
-  //   if (imagePath == null) {
-  //     return null;
-  //   }
-  //   final dio = Dio();
-  //   dio.options.headers['Authorization'] = token;
-
-  //   FormData formData = FormData.fromMap({
-  //     'file': await MultipartFile.fromFile(imagePath, filename: 'image.jpg'),
-  //   });
-
-  //   var response = await dio.post(
-  //     'https://api.bigbuzzapp.com/file/upload',
-  //     data: formData,
-  //   );
-
-  //   var responseBody = response.data;
-  //   print(responseBody);
-  //   if (responseBody['meta']['code'] == 200) {
-  //     return responseBody;
-  //   }
-  // }
 
   Future<dynamic> uploadFile(File? imageFile) async {
     final prefs = await SharedPreferences.getInstance();
     final String? token = prefs.getString('token');
+
     if (token == null) {
       return null;
     }
+
     var imagePath = imageFile?.path;
+
     if (imagePath == null) {
       return null;
     }
+
     var request = http.MultipartRequest(
         'POST', Uri.parse('https://api.bigbuzzapp.com/file/upload'));
 
     request.headers['Authorization'] = token;
 
-    request.files.add(await http.MultipartFile.fromPath('file', imagePath,
-        contentType: MediaType('image', 'jpg')));
+    request.files.add(
+      await http.MultipartFile.fromPath(
+        'file',
+        imagePath,
+        contentType: MediaType('image', 'jpg'),
+      ),
+    );
 
     var res = await request.send();
     var streamDecodedValue = await utf8.decodeStream(res.stream);
     var responseBody = jsonDecode(streamDecodedValue);
-    print(responseBody);
+
     if (responseBody['meta']['code'] == 200) {
       return responseBody;
     }
@@ -912,48 +825,54 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
     try {
       var token = await getToken();
 
-      final Uri uri = Uri.parse('https://api.bigbuzzapp.com/survey/addLead');
+      final Uri uri =
+          Uri.parse('https://api.bigbuzzapp.com/survey/addUpdateLead');
 
       List answers = [];
 
-      answersList.forEach((element) {
-        answers.add(
-          {
-            "campaign_id": widget.campaignId,
-            "question_id": element.questionId,
-            "answer": element.value
-          },
-        );
-      });
+      answersList.forEach(
+        (element) {
+          answers.add(
+            {
+              "campaign_id": widget.campaignId,
+              "question_id": element.questionId,
+              "answer": element.value
+            },
+          );
+        },
+      );
 
       var headers = <String, String>{
         "Authorization": token!,
       };
 
-      print('request body : $answers headers : $headers');
+      var body = {
+        "tittle": title,
+        "answers": json.encode(answers),
+        "lead_id": '${widget.leadId ?? ""}'
+      };
 
-      var body = {"tittle": title, "answers": json.encode(answers)};
-
-      print(body);
       final response = await http.post(
         uri,
         body: body,
         headers: headers,
       );
 
-      print(response);
       var responseBody = jsonDecode(response.body);
       if (responseBody['meta']['code'] == 200) {
         Navigator.of(context).pop();
-        Navigator.of(context).pop();
+        if (widget.leadId == null) {
+          Navigator.of(context).pop();
+        }
         await widget.fetchCampaignData();
         Fluttertoast.showToast(
-          msg: "Lead Added successfully",
+          msg: (widget.leadId != null)
+              ? "Lead Updated Successfully"
+              : "Lead Added Successfully",
           backgroundColor: Colors.grey[100],
           textColor: Colors.deepPurple[800],
         );
       }
-      print(responseBody);
     } catch (e, s) {
       logPrint.w('$e $s');
     }
@@ -985,12 +904,18 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
 
   DateTime getDateTimeFromString(String? date) {
     if (date != null && date != "") {
-      return DateTime.now();
+      var dateData = date.split(' ').toList().first;
+
+      var newDate = DateTime(
+        int.parse(dateData.split('-').toList().first),
+        int.parse(dateData.split('-').toList()[1]),
+        int.parse(dateData.split('-').toList().last),
+      );
+
+      return newDate;
     }
     return DateTime.now();
   }
-
-  /// ImagePicker Function
 
   Future<void> showOptionsDialog(
       BuildContext context, QuestionDataModel questionData) {
@@ -1045,7 +970,6 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
 
         var responseBody = await uploadFile(File(image.path));
 
-        print(responseBody);
         if (responseBody != null &&
             responseBody['data'].containsKey('file_url')) {
           for (AnswerModel answer in answersList) {
@@ -1098,11 +1022,60 @@ class _QuestionScreenPageState extends State<QuestionScreenPage> {
     }
   }
 
-  Widget displayImage() {
-    if (imgFile == null) {
-      return Text("No Image Selected!");
+  Future<void> getAnswers() async {
+    try {
+      var token = await getToken();
+
+      var headers = <String, String>{
+        "Authorization": token!,
+      };
+
+      final Uri uri =
+          Uri.parse('https://api.bigbuzzapp.com/leads/getLeadsById');
+
+      var responseBody = await http.post(
+        uri,
+        headers: headers,
+        body: {"lead_id": '${widget.leadId}'},
+      );
+
+      var response = jsonDecode(responseBody.body);
+
+      print(response);
+      logPrint.e(response);
+
+      if (response['meta']['code'] == 200) {
+        var data = response['data'];
+        print(data['tittle']);
+        title = data['tittle'];
+
+        _controller.text = title ?? "";
+
+        data['answers'].forEach(
+          (answerData) {
+            var index = answersList.indexWhere(
+                (answer) => answer.questionId == answerData['question_id']);
+
+            if (index != -1) {
+              answersList[index].value = answerData['answer'];
+            }
+          },
+        );
+      }
+    } catch (e, s) {
+      logPrint.e('$e get answers $s');
+    }
+  }
+
+  void getCurrentPosition() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied ||
+        permission == LocationPermission.deniedForever) {
+      LocationPermission asked = await Geolocator.requestPermission();
     } else {
-      return Image.file(imgFile!, width: 350, height: 350);
+      Position currentPosition = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
     }
   }
 }
