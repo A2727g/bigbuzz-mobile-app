@@ -1,0 +1,30 @@
+[
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/notification_template_icon_group.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/notification_action_tombstone.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/toast_custom.xml",
+        "source": "/Users/akshitsoni/.pub-cache/hosted/pub.dev/fluttertoast-8.1.1/android/src/main/res/layout/toast_custom.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/notification_template_part_chronometer.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/notification_action.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/notification_action.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/notification_template_part_time.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/akshitsoni/Documents/bigbuzz/bigbuzz-mobile-app/build/fluttertoast/intermediates/merged_res/release/layout/custom_dialog.xml",
+        "source": "/Users/akshitsoni/.gradle/caches/transforms-3/acbce933e4b464a5224ed377a62db1f5/transformed/core-1.6.0/res/layout/custom_dialog.xml"
+    }
+]
