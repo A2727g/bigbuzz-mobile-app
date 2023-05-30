@@ -35,7 +35,7 @@ class TicketCard extends StatelessWidget {
   String removeHtmlTags(String? description) {
     if (description != null) {
       RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
-      return description!.replaceAll(exp, '');
+      return description.replaceAll(exp, '');
     }
     return "";
   }
