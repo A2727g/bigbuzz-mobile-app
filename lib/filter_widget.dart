@@ -130,304 +130,302 @@ class FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: const Color.fromRGBO(232, 236, 244, 1),
-        appBar: AppBar(
-          iconTheme: const IconThemeData(
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(232, 236, 244, 1),
+      appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Color.fromARGB(255, 0, 37, 65),
+        ),
+
+        backgroundColor: Colors.white,
+
+        ///Clear All button
+        actions: [
+          TextButton(
+              onPressed: () {
+                setState(() {
+                  filterParams = filterParams.copyWith(selectedStatus: '');
+
+                  filterParams.fromDate =
+                      DateFormat('yyyy-MM-dd').format(DateTime.now());
+                  print('dewmnwejk : ${filterParams.fromDate}');
+                  setFilterData(filterParams.fromDate ?? "",
+                      filterParams.selectedStatus ?? "");
+                  // date: DateFormat('dd/MM/yy').format(DateTime.now()));
+                });
+                Navigator.pop(context, filterParams);
+              },
+              child: const Text(
+                "Clear All",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 106, 74, 182), fontSize: 16),
+              )),
+        ],
+        title:
+            // Text("Filter by (${filterParams.filterCount})"),
+            const Text(
+          "Filter by",
+          style: TextStyle(
             color: Color.fromARGB(255, 0, 37, 65),
+            fontWeight: FontWeight.w500,
           ),
-
-          backgroundColor: Colors.white,
-
-          ///Clear All button
-          actions: [
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding:
+            const EdgeInsets.only(left: 24, top: 12, right: 24, bottom: 25),
+        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 4.0,
+          ),
+        ]),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             TextButton(
                 onPressed: () {
-                  setState(() {
-                    filterParams = filterParams.copyWith(selectedStatus: '');
-
-                    filterParams.fromDate =
-                        DateFormat('yyyy-MM-dd').format(DateTime.now());
-                    print('dewmnwejk : ${filterParams.fromDate}');
-                    setFilterData(filterParams.fromDate ?? "",
-                        filterParams.selectedStatus ?? "");
-                    // date: DateFormat('dd/MM/yy').format(DateTime.now()));
-                  });
-                  Navigator.pop(context, filterParams);
+                  Navigator.pop(context, null);
                 },
                 child: const Text(
-                  "Clear All",
+                  "Cancel",
                   style: TextStyle(
-                      color: Color.fromARGB(255, 106, 74, 182), fontSize: 16),
+                      color: Color.fromRGBO(106, 74, 182, 1.0),
+                      fontWeight: FontWeight.w700),
+                )),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(132, 48),
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 0,
+                        // style: BorderStyle.solid
+                      ),
+                      borderRadius: BorderRadius.circular(14)),
+                  backgroundColor: const Color.fromARGB(255, 106, 74, 182),
+                ),
+                onPressed: () async {
+                  print(filterParams.fromDate);
+                  print(filterParams.selectedStatus);
+
+                  showDialog(
+                      context: context,
+                      builder: (context) =>
+                          const Center(child: CircularProgressIndicator()));
+                  await Future.delayed(const Duration(seconds: 2));
+                  await Future.delayed(
+                      const Duration(seconds: 0), () => Navigator.pop(context));
+                  await Future.delayed(const Duration(seconds: 0),
+                      () => Navigator.of(context).pop());
+                  setFilterData(filterParams.fromDate ?? "",
+                      filterParams.selectedStatus ?? "");
+                },
+                child: const Text(
+                  "Apply",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w900),
                 )),
           ],
-          title:
-              // Text("Filter by (${filterParams.filterCount})"),
-              const Text(
-            "Filter by",
-            style: TextStyle(
-              color: Color.fromARGB(255, 0, 37, 65),
-              fontWeight: FontWeight.w500,
+        ),
+      ),
+      body: Row(
+        children: [
+          Container(
+            width: width * .3,
+            color: Colors.white,
+            child: Column(
+              children: [
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        filterParams = filterParams.copyWith(
+                            selectedFilter: SelectedFilter.date);
+                      });
+                    },
+                    child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        color:
+                            filterParams.selectedFilter == SelectedFilter.date
+                                ? const Color.fromARGB(255, 106, 74, 182)
+                                : null,
+                        child: Text(
+                          "Start Date",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: filterParams.selectedFilter ==
+                                      SelectedFilter.date
+                                  ? Colors.white
+                                  : null),
+                        ))),
+                InkWell(
+                    onTap: () {
+                      setState(() {
+                        filterParams = filterParams.copyWith(
+                            selectedFilter: SelectedFilter.location);
+                      });
+                    },
+                    child: Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(16),
+                        color: filterParams.selectedFilter ==
+                                SelectedFilter.location
+                            ? const Color.fromARGB(255, 106, 74, 182)
+                            : null,
+                        child: Text(
+                          "Location",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              color: filterParams.selectedFilter ==
+                                      SelectedFilter.location
+                                  ? Colors.white
+                                  : null),
+                        ))),
+                // InkWell(
+                //     onTap: () {
+                //       setState(() {
+                //         filterParams = filterParams.copyWith(
+                //             selectedFilter: SelectedFilter.user);
+                //       });
+                //     },
+                //     child: Container(
+                //         width: double.infinity,
+                //         padding: const EdgeInsets.all(16),
+                //         color: filterParams.selectedFilter ==
+                //             SelectedFilter.user
+                //             ? Colors.redAccent
+                //             : null,
+                //         child: Text(
+                //           "User",ƒ
+                //           style: TextStyle(
+                //               fontWeight: FontWeight.w700,
+                //               color: filterParams.selectedFilter ==
+                //                   SelectedFilter.user
+                //                   ? Colors.white
+                //                   : null),
+                //         ))),
+              ],
             ),
           ),
-        ),
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              blurRadius: 4.0,
-            ),
-          ]),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, null);
-                  },
-                  child: const Text(
-                    "Cancel",
-                    style: TextStyle(
-                        color: Color.fromRGBO(106, 74, 182, 1.0),
-                        fontWeight: FontWeight.w700),
-                  )),
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(132, 48),
-                    shape: RoundedRectangleBorder(
-                        side: const BorderSide(
-                          width: 0,
-                          // style: BorderStyle.solid
-                        ),
-                        borderRadius: BorderRadius.circular(14)),
-                    backgroundColor: const Color.fromARGB(255, 106, 74, 182),
-                  ),
-                  onPressed: () async {
-                    print(filterParams.fromDate);
-                    print(filterParams.selectedStatus);
-
-                    showDialog(
-                        context: context,
-                        builder: (context) =>
-                            const Center(child: CircularProgressIndicator()));
-                    await Future.delayed(const Duration(seconds: 2));
-                    await Future.delayed(const Duration(seconds: 0),
-                        () => Navigator.pop(context));
-                    await Future.delayed(const Duration(seconds: 0),
-                        () => Navigator.of(context).pop());
-                    setFilterData(filterParams.fromDate ?? "",
-                        filterParams.selectedStatus ?? "");
-                  },
-                  child: const Text(
-                    "Apply",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w900),
-                  )),
-            ],
-          ),
-        ),
-        body: Row(
-          children: [
-            Container(
-              width: width * .3,
-              color: Colors.white,
+          Expanded(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(200, 255, 255, 255),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.grey,
+                //     blurRadius: 14.0,
+                //   ),
+                // ]
+              ),
               child: Column(
                 children: [
-                  InkWell(
-                      onTap: () {
-                        setState(() {
-                          filterParams = filterParams.copyWith(
-                              selectedFilter: SelectedFilter.date);
-                        });
-                      },
-                      child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          color:
-                              filterParams.selectedFilter == SelectedFilter.date
-                                  ? const Color.fromARGB(255, 106, 74, 182)
-                                  : null,
-                          child: Text(
-                            "Start Date",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: filterParams.selectedFilter ==
-                                        SelectedFilter.date
-                                    ? Colors.white
-                                    : null),
-                          ))),
-                  InkWell(
-                      onTap: () {
-                        setState(() {
-                          filterParams = filterParams.copyWith(
-                              selectedFilter: SelectedFilter.location);
-                        });
-                      },
-                      child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(16),
-                          color: filterParams.selectedFilter ==
-                                  SelectedFilter.location
-                              ? const Color.fromARGB(255, 106, 74, 182)
-                              : null,
-                          child: Text(
-                            "Location",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: filterParams.selectedFilter ==
-                                        SelectedFilter.location
-                                    ? Colors.white
-                                    : null),
-                          ))),
-                  // InkWell(
-                  //     onTap: () {
-                  //       setState(() {
-                  //         filterParams = filterParams.copyWith(
-                  //             selectedFilter: SelectedFilter.user);
-                  //       });
-                  //     },
-                  //     child: Container(
-                  //         width: double.infinity,
-                  //         padding: const EdgeInsets.all(16),
-                  //         color: filterParams.selectedFilter ==
-                  //             SelectedFilter.user
-                  //             ? Colors.redAccent
-                  //             : null,
-                  //         child: Text(
-                  //           "User",ƒ
-                  //           style: TextStyle(
-                  //               fontWeight: FontWeight.w700,
-                  //               color: filterParams.selectedFilter ==
-                  //                   SelectedFilter.user
-                  //                   ? Colors.white
-                  //                   : null),
-                  //         ))),
+                  if (filterParams.selectedFilter == SelectedFilter.date)
+                    Padding(
+                      padding: const EdgeInsets.all(21),
+                      child: Column(
+                        children: [
+                          InkWell(
+                              onTap: () => _selectDate(context, DateType.from),
+                              child: Container(
+                                  width: width * 0.5,
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(10)),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Colors.grey[200]!,
+                                      )),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        "To           ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey[500]),
+                                      ),
+                                      Text(
+                                        filterParams.fromDate == ''
+                                            ? ''
+                                            : DateFormat("dd/MM/yyyy").format(
+                                                DateTime.parse(
+                                                    filterParams.fromDate!)),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      const Spacer(),
+                                      // Icon(
+                                      //   Icons.date_range,
+                                      //   color: Colors.redAccent[400]!,
+                                      // ),
+                                    ],
+                                  ))),
+                          const SizedBox(
+                            height: 32,
+                          ),
+                          // InkWell(
+                          //     onTap: () => _selectDate(context, DateType.to),
+                          //     child: Container(
+                          //         width: width * 0.5,
+                          //         padding: const EdgeInsets.all(16),
+                          //         decoration: BoxDecoration(
+                          //             color: Colors.white,
+                          //             borderRadius: const BorderRadius.all(
+                          //                 Radius.circular(10,)),
+                          //             border: Border.all(
+                          //               color: Colors.grey[200]!,
+                          //             )),
+                          //         // child: Row(
+                          //         //   children: [
+                          //         //     Text("From       ",
+                          //         //       style: TextStyle(color: Colors.grey[500]),
+                          //         //     ),
+                          //         //     Text(filterParams.toDate == ''
+                          //         //         ? ''
+                          //         //         : DateFormat("dd/MM/yyyy",
+                          //         //       // TextStyle(fontWeight: FontWeight.w500)
+                          //         //     ).format(
+                          //         //         DateTime.parse(
+                          //         //             filterParams.toDate!)),
+                          //         //       style: const TextStyle(fontWeight: FontWeight.bold),
+                          //         //     ),
+                          //         //     const Spacer(),
+                          //         //     // Icon(
+                          //         //     //   Icons.date_range,
+                          //         //     //   color: Colors.redAccent[400]!,
+                          //         //     // ),
+                          //         //   ],)
+                          //     )),
+                        ],
+                      ),
+                    ),
+                  if (filterParams.selectedFilter == SelectedFilter.location)
+                    Expanded(
+                        child: ListView.builder(
+                            itemCount: filterParams.statusList!.length,
+                            itemBuilder: (context, index) {
+                              var status = filterParams.statusList![index];
+                              return Row(
+                                children: [
+                                  Checkbox(
+                                      activeColor: const Color.fromARGB(
+                                          255, 106, 74, 182),
+                                      value:
+                                          status == filterParams.selectedStatus,
+                                      onChanged: (val) {
+                                        _onStatusChanged(val, status);
+                                      }),
+                                  Text(status)
+                                ],
+                              );
+                            }))
                 ],
               ),
             ),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(200, 255, 255, 255),
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.grey,
-                  //     blurRadius: 14.0,
-                  //   ),
-                  // ]
-                ),
-                child: Column(
-                  children: [
-                    if (filterParams.selectedFilter == SelectedFilter.date)
-                      Padding(
-                        padding: const EdgeInsets.all(21),
-                        child: Column(
-                          children: [
-                            InkWell(
-                                onTap: () =>
-                                    _selectDate(context, DateType.from),
-                                child: Container(
-                                    width: width * 0.5,
-                                    padding: const EdgeInsets.all(16),
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(10)),
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.grey[200]!,
-                                        )),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "To           ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              color: Colors.grey[500]),
-                                        ),
-                                        Text(
-                                          filterParams.fromDate == ''
-                                              ? ''
-                                              : DateFormat("dd/MM/yyyy").format(
-                                                  DateTime.parse(
-                                                      filterParams.fromDate!)),
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        const Spacer(),
-                                        // Icon(
-                                        //   Icons.date_range,
-                                        //   color: Colors.redAccent[400]!,
-                                        // ),
-                                      ],
-                                    ))),
-                            const SizedBox(
-                              height: 32,
-                            ),
-                            // InkWell(
-                            //     onTap: () => _selectDate(context, DateType.to),
-                            //     child: Container(
-                            //         width: width * 0.5,
-                            //         padding: const EdgeInsets.all(16),
-                            //         decoration: BoxDecoration(
-                            //             color: Colors.white,
-                            //             borderRadius: const BorderRadius.all(
-                            //                 Radius.circular(10,)),
-                            //             border: Border.all(
-                            //               color: Colors.grey[200]!,
-                            //             )),
-                            //         // child: Row(
-                            //         //   children: [
-                            //         //     Text("From       ",
-                            //         //       style: TextStyle(color: Colors.grey[500]),
-                            //         //     ),
-                            //         //     Text(filterParams.toDate == ''
-                            //         //         ? ''
-                            //         //         : DateFormat("dd/MM/yyyy",
-                            //         //       // TextStyle(fontWeight: FontWeight.w500)
-                            //         //     ).format(
-                            //         //         DateTime.parse(
-                            //         //             filterParams.toDate!)),
-                            //         //       style: const TextStyle(fontWeight: FontWeight.bold),
-                            //         //     ),
-                            //         //     const Spacer(),
-                            //         //     // Icon(
-                            //         //     //   Icons.date_range,
-                            //         //     //   color: Colors.redAccent[400]!,
-                            //         //     // ),
-                            //         //   ],)
-                            //     )),
-                          ],
-                        ),
-                      ),
-                    if (filterParams.selectedFilter == SelectedFilter.location)
-                      Expanded(
-                          child: ListView.builder(
-                              itemCount: filterParams.statusList!.length,
-                              itemBuilder: (context, index) {
-                                var status = filterParams.statusList![index];
-                                return Row(
-                                  children: [
-                                    Checkbox(
-                                        activeColor: const Color.fromARGB(
-                                            255, 106, 74, 182),
-                                        value: status ==
-                                            filterParams.selectedStatus,
-                                        onChanged: (val) {
-                                          _onStatusChanged(val, status);
-                                        }),
-                                    Text(status)
-                                  ],
-                                );
-                              }))
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

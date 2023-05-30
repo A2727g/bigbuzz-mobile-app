@@ -33,9 +33,9 @@ class BottomScreenPage extends StatelessWidget {
           Container(
             height: 190,
             padding: const EdgeInsets.all(12),
+            margin: EdgeInsets.only(bottom: 25),
             constraints: const BoxConstraints(maxHeight: double.infinity),
             decoration: const BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(25.0),
                 topRight: Radius.circular(25.0),

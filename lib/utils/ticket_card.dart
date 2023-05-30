@@ -294,19 +294,11 @@ _showModalBottomSheet(
         top: Radius.circular(24),
       ),
     ),
-    builder: (context) => DraggableScrollableSheet(
-      expand: false,
-      initialChildSize: 0.3,
-      maxChildSize: 0.31,
-      minChildSize: 0.01,
-      builder: (context, scrollController) => SingleChildScrollView(
-        child: BottomScreenPage(
-          campaignStatus: campaignStatus,
-          campaignId: campaignId,
-          userData: userData,
-          fetchCampaignData: fetchCampaignData,
-        ),
-      ),
+    builder: (context) => BottomScreenPage(
+      campaignStatus: campaignStatus,
+      campaignId: campaignId,
+      userData: userData,
+      fetchCampaignData: fetchCampaignData,
     ),
   );
 }
