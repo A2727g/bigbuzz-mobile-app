@@ -225,6 +225,7 @@ class TicketCard extends StatelessWidget {
     'approved': ColorConstants.expediteStatus2,
     'pending': ColorConstants.pendingStatus,
     'rejected': ColorConstants.rejectedStatus,
+    'done': ColorConstants.approvedStatus,
   };
 
   static const Map<String, Color> ticketColorMap = {
@@ -374,7 +375,7 @@ class TicketCard extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 10,
                         ),
                         Row(
                           children: [
@@ -390,9 +391,8 @@ class TicketCard extends StatelessWidget {
                                 '$status1',
                                 style: textTheme.caption!.copyWith(
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 8,
-                                    color: status1ColorMap[
-                                        status1!.toLowerCase()]),
+                                    fontSize: 10,
+                                    color: Colors.white),
                               ),
                             ),
                             const SizedBox(
