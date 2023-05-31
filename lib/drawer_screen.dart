@@ -117,7 +117,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () async {
-                launchMailto(email: email);
+                launchMailto(subject: 'Help and Support');
               },
             ),
             ListTile(
@@ -164,7 +164,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () {
-                launchMailto(email: email);
+                launchMailto(subject: 'Feedback');
               },
             ),
             ListTile(
@@ -255,10 +255,10 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
     );
   }
 
-  launchMailto({required String email}) async {
+  launchMailto({required String subject}) async {
     final mailtoLink = Mailto(
-      to: [email],
-      subject: 'Start your campaign now! bigbuzz',
+      to: ['priya@gmail.com'],
+      subject: subject,
       body: '',
     );
 
