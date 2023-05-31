@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:mailto/mailto.dart';
 import 'login_screen.dart';
 
 class DrawerScreenPage extends StatefulWidget {
@@ -20,6 +19,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
   @override
   void didChangeDependencies() async {
     userData = widget.userData;
+    print(userData);
     super.didChangeDependencies();
   }
 
@@ -39,7 +39,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
           padding: const EdgeInsets.all(24),
           children: [
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
             Container(
               // height: 65,
@@ -117,12 +117,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () async {
-                var url = 'https://www.googleplaystore.com';
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw 'Could not launch $url';
-                }
+                launchMailto(email: email);
               },
             ),
             ListTile(
@@ -142,7 +137,8 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () async {
-                var url = 'https://play.google.com/store/games';
+                var url =
+                    'https://play.google.com/store/apps/details?id=com.salesjinni.bigbuzz&hl=en_IN&gl=US';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
@@ -168,7 +164,7 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () {
-                Navigator.pop(context);
+                launchMailto(email: email);
               },
             ),
             ListTile(
@@ -189,7 +185,8 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () {
-                Share.share('com.salesjinni.bigbuzz');
+                Share.share(
+                    'Start your campaign now! https://play.google.com/store/apps/details?id=com.salesjinni.bigbuzz&hl=en_IN&gl=US');
               },
             ),
             const Divider(
@@ -215,7 +212,8 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
                 ),
               ),
               onTap: () async {
-                var url = 'https://www.googleplaystore.com';
+                var url =
+                    'https://play.google.com/store/apps/details?id=com.salesjinni.bigbuzz&hl=en_IN&gl=US';
                 if (await canLaunch(url)) {
                   await launch(url);
                 } else {
@@ -255,5 +253,15 @@ class _DrawerScreenPageState extends State<DrawerScreenPage> {
         ),
       ),
     );
+  }
+
+  launchMailto({required String email}) async {
+    final mailtoLink = Mailto(
+      to: [email],
+      subject: 'Start your campaign now! bigbuzz',
+      body: '',
+    );
+
+    await launchUrl(Uri.parse('$mailtoLink'));
   }
 }

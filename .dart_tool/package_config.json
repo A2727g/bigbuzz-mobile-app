@@ -446,6 +446,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "mailto",
+      "rootUri": "file:///Users/akshitsoni/.pub-cache/hosted/pub.dev/mailto-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///Users/akshitsoni/.pub-cache/hosted/pub.dev/matcher-0.12.13",
       "packageUri": "lib/",
@@ -854,7 +860,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2023-05-30T14:07:48.042463Z",
+  "generated": "2023-05-31T08:55:29.857915Z",
   "generator": "pub",
   "generatorVersion": "2.19.6"
 }
